@@ -32,6 +32,15 @@ class RepositorioMemoria(PersonajeRepository):
         # >>> SALA 2.2 · RepositorioMemoria
         # Arma este bloque en el Edificio de la Persistencia (pestaña Python),
         # pulsa «Copiar bloque» y pégalo entre estas dos marcas.
+                for existente in self._datos.values():
+            if existente.nombre == personaje.nombre:
+                raise DatoDuplicadoException(personaje.nombre)
+        personaje.id = self._siguiente_id
+        self._siguiente_id += 1
+        self._datos[personaje.id] = personaje
+        self._inventarios[personaje.id] = []
+        return personaje
+
         # <<< FIN SALA 2.2
 
     def buscar_por_id(self, id):

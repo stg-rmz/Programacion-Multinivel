@@ -35,6 +35,16 @@ public class RepositorioMemoria implements PersonajeRepository {
         // >>> SALA 2.2 · RepositorioMemoria
         // Arma este bloque en el Edificio de la Persistencia (pestaña Java),
         // pulsa «Copiar bloque» y pégalo entre estas dos marcas.
+                for (Personaje existente : datos.values()) {
+            if (existente.getNombre().equals(p.getNombre())) {     // equals, no ==
+                throw new DatoDuplicadoException(p.getNombre(), null);
+            }
+        }
+        p.setId(siguienteId++);
+        datos.put(p.getId(), p);
+        inventarios.put(p.getId(), new ArrayList<>());
+        return p;
+
         // <<< FIN SALA 2.2
     }
 
