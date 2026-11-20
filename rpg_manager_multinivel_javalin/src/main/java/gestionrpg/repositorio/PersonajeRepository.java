@@ -9,6 +9,28 @@ import java.util.List;
  * repositorio, no CÓMO se hacen. Si una clase que lo implementa olvida un
  * método, no compila.
  */
+    /** Guarda un personaje nuevo, le asigna su id y lo devuelve. */
+    Personaje guardar(Personaje p);
+
+    /** Devuelve el personaje con ese id, o null si no existe. */
+    Personaje buscarPorId(int id);
+
+    /** Devuelve una lista NUEVA con todos los personajes. */
+    List<Personaje> listarTodos();
+
+    /** Devuelve una lista nueva con los personajes de esa clase. */
+    List<Personaje> listarPorClase(String clase);
+
+    /** Guarda los cambios de un personaje existente. true si existía. */
+    boolean actualizar(Personaje p);
+
+    /** Borra el personaje. true si existía. */
+    boolean eliminar(int id);
+
+    /** Devuelve los ítems del personaje (lista vacía si no tiene). */
+    List<Item> listarInventario(int idPersonaje);
+
+
 public interface PersonajeRepository {
 
     // >>> SALA 2.1 · El contrato
