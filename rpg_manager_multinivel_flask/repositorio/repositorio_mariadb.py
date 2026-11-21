@@ -120,6 +120,19 @@ class RepositorioMariaDB(PersonajeRepository):
         # >>> SALA 2.5 · MariaDB: eliminar y el error 1451
         # Arma este bloque en el Edificio de la Persistencia (pestaña Python),
         # pulsa «Copiar bloque» y pégalo entre estas dos marcas.
+                with self._conectar() as conexion:
+            try:
+                with conexion.cursor() as cursor:
+                    filas = cursor.execute("DELETE FROM personaje WHERE id_personaje = %s", (id,))
+                conexion.commit()
+            except pymysql.err.IntegrityError as error:
+                conexion.rollback()
+                if error.args[0] == ERROR_FK_EN_USO:
+                    # inventario y personaje_mision se borran en cascada, combate no
+                    raise DatoEnUsoException(id) from error
+                raise
+        return filas > 0
+
         # <<< FIN SALA 2.5
 
     def listar_inventario(self, id_personaje):
