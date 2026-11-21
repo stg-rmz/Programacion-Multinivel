@@ -48,7 +48,8 @@ class RepositorioMariaDB(PersonajeRepository):
     def _consultar_personajes(self, sql, parametros=()):
         # >>> SALA 2.3 · MariaDB: leer un personaje
         # Arma este bloque en el Edificio de la Persistencia (pestaña Python),
-        # pulsa «        resultado = []
+        # pulsa «        
+        resultado = []
         with self._conectar() as conexion, conexion.cursor() as cursor:
             cursor.execute(sql, parametros)
             for fila in cursor.fetchall():
@@ -67,6 +68,19 @@ class RepositorioMariaDB(PersonajeRepository):
         # >>> SALA 2.4 · MariaDB: guardar con INSERT
         # Arma este bloque en el Edificio de la Persistencia (pestaña Python),
         # pulsa «Copiar bloque» y pégalo entre estas dos marcas.
+                with self._conectar() as conexion:
+            try:
+                with conexion.cursor() as cursor:
+                    cursor.execute(sql, valores)
+                    personaje.id = cursor.lastrowid    # id generado por AUTO_INCREMENT
+                conexion.commit()                       # sin commit, el INSERT no queda guardado
+            except pymysql.err.IntegrityError as error:
+                conexion.rollback()
+                if error.args[0] == ERROR_DUPLICADO:
+                    raise DatoDuplicadoException(personaje.nombre) from error
+                raise
+        return personaje
+
         # <<< FIN SALA 2.4
 
     def buscar_por_id(self, id):
