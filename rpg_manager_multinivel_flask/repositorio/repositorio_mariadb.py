@@ -48,7 +48,13 @@ class RepositorioMariaDB(PersonajeRepository):
     def _consultar_personajes(self, sql, parametros=()):
         # >>> SALA 2.3 · MariaDB: leer un personaje
         # Arma este bloque en el Edificio de la Persistencia (pestaña Python),
-        # pulsa «Copiar bloque» y pégalo entre estas dos marcas.
+        # pulsa «        resultado = []
+        with self._conectar() as conexion, conexion.cursor() as cursor:
+            cursor.execute(sql, parametros)
+            for fila in cursor.fetchall():
+                resultado.append(self._fila_a_personaje(fila))
+        return resultado
+        #» y pégalo entre estas dos marcas.
         # <<< FIN SALA 2.3
 
     def guardar(self, personaje):
