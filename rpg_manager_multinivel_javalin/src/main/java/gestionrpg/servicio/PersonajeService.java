@@ -18,6 +18,19 @@ import java.util.List;
 // >>> SALA 3.1 · Inyección por constructor
 // Arma este bloque en el Edificio de la Persistencia (pestaña Java),
 // pulsa «Copiar bloque» y pégalo entre estas dos marcas.
+public class PersonajeService {
+
+    private final PersonajeRepository repositorio;
+
+    public PersonajeService(PersonajeRepository repositorio) {
+        this.repositorio = repositorio;
+    }
+
+    // ---------- consultas ----------
+
+    public List<Personaje> listar() {
+        return repositorio.listarTodos();
+
 // <<< FIN SALA 3.1
     }
 
