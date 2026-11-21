@@ -92,6 +92,12 @@ class PersonajeService:
         # >>> SALA 3.3 · Crear: validar y traducir
         # Arma este bloque en el Edificio de la Persistencia (pestaña Python),
         # pulsa «Copiar bloque» y pégalo entre estas dos marcas.
+                personaje = crear_personaje(clase, nombre, nivel, vida, ataque, oro)
+        try:
+            return self._repositorio.guardar(personaje)
+        except DatoDuplicadoException:
+            raise ValidacionException(f"Ya existe un personaje llamado {nombre}")
+
         # <<< FIN SALA 3.3
 
     def actualizar_vida(self, id, vida):
