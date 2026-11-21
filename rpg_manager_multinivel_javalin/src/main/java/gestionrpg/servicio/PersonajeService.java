@@ -67,6 +67,22 @@ public class PersonajeService {
         // >>> SALA 3.4 · Agregar ítem: reglas del negocio
         // Arma este bloque en el Edificio de la Persistencia (pestaña Java),
         // pulsa «Copiar bloque» y pégalo entre estas dos marcas.
+                obtener(id);
+        if (cantidad < 1 || cantidad > 99) {
+            throw new ValidacionException("La cantidad debe estar entre 1 y 99");
+        }
+        boolean existe = false;
+        for (Item item : repositorio.listarCatalogo()) {
+            if (item.getNombre().equals(nombreItem)) {
+                existe = true;
+            }
+        }
+        if (!existe) {
+            throw new ValidacionException("No existe el ítem " + nombreItem);
+        }
+        repositorio.agregarItem(id, nombreItem, cantidad);
+        return repositorio.listarInventario(id);
+
         // <<< FIN SALA 3.4
     }
 
