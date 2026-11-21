@@ -39,6 +39,16 @@ class PersonajeService:
     # >>> SALA 3.2 · Obtener: de null a 404
     # Arma este bloque en el Edificio de la Persistencia (pestaña Python),
     # pulsa «Copiar bloque» y pégalo entre estas dos marcas.
+        def obtener(self, id):
+        personaje = self._repositorio.buscar_por_id(id)
+        if personaje is None:
+            raise PersonajeNoEncontradoException(f"No existe el personaje {id}")
+        return personaje
+
+    def inventario(self, id):
+        self.obtener(id)    # 404 si el personaje no existe
+        return self._repositorio.listar_inventario(id)
+
     # <<< FIN SALA 3.2
 
     def catalogo(self):

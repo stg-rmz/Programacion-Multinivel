@@ -42,6 +42,18 @@ public class PersonajeService {
     // >>> SALA 3.2 · Obtener: de null a 404
     // Arma este bloque en el Edificio de la Persistencia (pestaña Java),
     // pulsa «Copiar bloque» y pégalo entre estas dos marcas.
+        public Personaje obtener(int id) {
+        Personaje p = repositorio.buscarPorId(id);
+        if (p == null) {
+            throw new PersonajeNoEncontradoException(id);
+        }
+        return p;
+    }
+
+    public List<Item> inventario(int id) {
+        obtener(id);    // 404 si el personaje no existe
+        return repositorio.listarInventario(id);
+
     // <<< FIN SALA 3.2
     }
 
