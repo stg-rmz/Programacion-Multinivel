@@ -141,8 +141,14 @@ public class PersonajeControlador {
 
     private void agregarItem(Context ctx) {
         // >>> SALA 4.3 · Las rutas del inventario
-        // Arma este bloque en el Edificio de la Persistencia (pestaña Java),
-        // pulsa «Copiar bloque» y pégalo entre estas dos marcas.
+        int id = idDe(ctx);
+        try {
+            service.agregarItem(id, ctx.formParam("item"), entero(ctx.formParam("cantidad"), "cantidad", 1));
+        } catch (ValidacionException e) {
+            ctx.redirect("/personajes/" + id + "?error=" + codificar(e.getMessage()));
+            return;
+        }
+        ctx.redirect("/personajes/" + id);
         // <<< FIN SALA 4.3
     }
 
