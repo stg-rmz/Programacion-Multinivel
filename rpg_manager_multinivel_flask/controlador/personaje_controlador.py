@@ -40,8 +40,12 @@ def crear_controlador(service, motor):
     def crear():
         datos = request.form
         # >>> SALA 4.2 · La ruta POST crear
-        # Arma este bloque en el Edificio de la Persistencia (pestaña Python),
-        # pulsa «Copiar bloque» y pégalo entre estas dos marcas.
+        try:
+            service.crear(datos.get("nombre"), datos.get("clase"), datos.get("nivel", 1),
+                          datos.get("vida", 100), datos.get("ataque", 10), datos.get("oro", 0))
+        except ValidacionException as e:
+            return render_template("nuevo.html", datos=datos, error=str(e)), 400
+        return redirect(url_for("personajes.listar"))
         # <<< FIN SALA 4.2
 
     @bp.get("/personajes/<int:id>")
