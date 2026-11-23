@@ -45,7 +45,7 @@ def main():
     # >>> SALA A.1 · Recorrido completo: Kaelen
     # Arma este bloque en el Edificio de la Persistencia (pestaña Python),
     # pulsa «Copiar bloque» y pégalo entre estas dos marcas.
-        try:
+    try:
         nuevo = service.crear(NOMBRE_PRUEBA, "Arquero", nivel=3, vida=90, ataque=18, oro="12.50")
     except ValidacionException as e:
         print(f"\n4. No se pudo crear: {e}")

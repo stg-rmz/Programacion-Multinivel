@@ -7,22 +7,6 @@ métodos abstractos (lanza TypeError).
 from abc import ABC, abstractmethod
 
 
-class PersonajeRepository(ABC):
-
-    # >>> SALA 2.1 · El contrato
-    # Arma este bloque en el Edificio de la Persistencia (pestaña Python),
-    # pulsa «Copiar bloque» y pégalo entre estas dos marcas.
-    # <<< FIN SALA 2.1
-    # Archivo: rpg_manager_multinivel_flask/repositorio/personaje_repository.py (clase abstracta)
-
-#"""Contrato de la capa de persistencia.
-
-#Dice QUÉ operaciones debe ofrecer cualquier repositorio, no CÓMO se hacen.
-#Python no deja crear un objeto de una clase que no implemente todos los
-#métodos abstractos (lanza TypeError).
-#"""
-from abc import ABC, abstractmethod
-
 
 class PersonajeRepository(ABC):
 
